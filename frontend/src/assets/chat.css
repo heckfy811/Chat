@@ -1,0 +1,709 @@
+/* Chat Page Styles */
+
+/* General/Reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Apply a more modern font across the chat interface */
+.chat-page,
+.chat-list-container,
+.chat-view-container,
+.modal-content {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* General body styling (if not already globally handled) */
+/* Assuming similar base styling to AuthPage for consistency if needed */
+/* body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-color: #F0F2F5;
+  color: #333333;
+} */
+
+.chat-page {
+  display: flex;
+  height: 100vh;
+  background-color: #F0F2F5; /* Light gray overall background */
+  color: #14171A; /* Dark text color */
+  overflow: hidden; /* Prevent scrollbars on the main page */
+}
+
+/* ChatList Container (Left Panel) */
+.chat-list-container {
+  width: 300px; /* Fixed width for chat list */
+  background-color: #FFFFFF; /* White background for the list area */
+  border-right: 1px solid #DDE1E6; /* Light gray border */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.account-section {
+  padding: 15px;
+  background-color: hsl(273, 100%, 75%); /* Lighter green for account section header */
+  border-bottom: 1px solid #DDE1E6; /* Light gray border */
+  position: relative; /* For dropdown positioning */
+}
+
+.account-btn {
+  background: none;
+  border: none;
+  color: #14171A;
+  cursor: pointer;
+  padding: 8px 5px; /* Adjusted padding */
+  display: flex;
+  align-items: center;
+  width: 100%; /* Make button take full width to align text */
+  text-align: left;
+}
+
+.account-icon {
+  font-size: 1.8em; /* Larger icon */
+  margin-right: 8px; /* Space between icon and text */
+  line-height: 1; /* Adjust line height for icon if needed */
+}
+
+.account-text {
+  font-size: 0.95em; /* Size for the text */
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+.account-btn:hover .account-text {
+  color: hsl(273, 94%, 51%); /* Darker green on hover for text */
+}
+.account-btn:hover .account-icon {
+  color: hsl(273, 94%, 51%); /* Darker green on hover for icon */
+}
+
+.account-dropdown {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  left: 10px;
+  right: 10px; /* Make it stretch a bit */
+  background-color: #FFFFFF; /* White background */
+  border: 1px solid #DDE1E6;
+  border-top: none; /* Avoid double border with account-section */
+  border-radius: 0 0 6px 6px; /* Rounded bottom corners */
+  padding: 15px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle flat shadow */
+  color: #14171A;
+}
+
+.account-dropdown p {
+  margin: 0 0 8px 0;
+  font-size: 0.9em;
+}
+
+.account-dropdown p strong {
+  color: hsl(273, 94%, 51%); /* Dark green for emphasis */
+  font-weight: 600;
+  margin-right: 5px; /* Add a small margin for spacing after the label */
+}
+
+.logout-btn {
+  background-color: #C62828; /* Flat red for logout */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.logout-btn:hover {
+  background-color: #A93226; /* Darker flat red on hover */
+}
+
+/* ChatList Component Specific Styles */
+.chat-list {
+  flex-grow: 1;
+  overflow-y: auto; /* Allow scrolling for chat items */
+  padding: 10px 0;
+}
+
+.chat-list h5 {
+  font-size: 1.1em;
+  color: hsl(273, 94%, 51%); /* Dark green for heading */
+  padding: 0 15px 10px 15px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.create-chat-btn {
+  display: block;
+  width: calc(100% - 30px); /* Full width minus padding */
+  margin: 0 15px 15px 15px;
+  padding: 10px;
+  background-color: hsl(273, 100%, 67%); /* Main green */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.create-chat-btn:hover {
+  background-color: hsl(273, 94%, 51%); /* Darker green */
+}
+
+.chat-list ul {
+  list-style: none; /* Explicitly remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.chat-list li {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #F0F2F5; /* Very light separator */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.chat-list li:hover {
+  background-color: #E8F5E9; /* Light green tint on hover */
+}
+
+.chat-list li.active {
+  background-color: hsl(273, 100%, 75%); /* Lighter green for active chat */
+  color: #14171A;
+  font-weight: 500;
+}
+
+.chat-list li .chat-name {
+  font-size: 0.95em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+.mute-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #d1d9df; /* Muted gray for mute icon */
+  padding: 0;
+}
+
+.chat-list li.muted .chat-name {
+  color: #d1d9df; /* Muted text color for muted chat */
+}
+
+.chat-list li.muted .mute-btn {
+  color: hsl(273, 100%, 67%); /* Green bell for unmuted state, visually indicates it IS muted now */
+}
+
+.chat-list li:not(.muted) .mute-btn:hover,
+.chat-list li.muted .mute-btn:hover {
+  color: hsl(273, 94%, 51%); /* Darker green on hover */
+}
+
+.chat-list p {
+  text-align: center;
+  color: #657786; /* Medium gray for 'no chats' message */
+  padding: 20px;
+  font-size: 0.9em;
+}
+
+/* Modal Styles for Create Chat */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 23, 26, 0.6); /* Dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 450px;
+  color: #14171A;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4em;
+  color: hsl(273, 94%, 51%); /* Dark green heading */
+  font-weight: 600;
+}
+
+.modal-content div {
+  margin-bottom: 15px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #657786;
+}
+
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #DDE1E6;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1em;
+  background-color: #FDFDFD;
+}
+
+.modal-content input[type="text"]:focus {
+  outline: none;
+  border-color: hsl(273, 100%, 67%);
+  box-shadow: 0 0 0 2px rgba(96, 153, 102, 0.2);
+}
+
+.modal-content button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-right: 10px;
+}
+
+.modal-content button[type="submit"] {
+  background-color: hsl(273, 100%, 67%); /* Main green */
+  color: white;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: hsl(273, 94%, 51%);
+}
+
+.modal-content button[type="button"] {
+  background-color: #E4E6EB; /* Light gray for cancel */
+  color: #14171A;
+}
+
+.modal-content button[type="button"]:hover {
+  background-color: #DDE1E6;
+}
+
+.modal-content .error-message {
+  color: #C62828; /* Flat red for error */
+  background-color: #FFEBEE;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9em;
+  border: 1px solid #FFCDD2;
+}
+
+
+/* ChatView Container (Right Panel) */
+.chat-view-container {
+  flex-grow: 1; /* Takes remaining width */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #F7F9F9; /* Slightly off-white for chat background, subtle difference */
+  overflow: hidden; /* Prevent chat view itself from scrolling, messages-container will scroll */
+}
+
+/* ChatView Component Specific Styles */
+.chat-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.no-chat-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: #657786; /* Medium gray */
+  font-size: 1.1em;
+  padding: 20px;
+}
+
+.chat-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden; /* Reverted: Important for messages-container to scroll correctly */
+}
+
+/* Message Search Bar */
+.message-search-bar {
+  padding: 10px 15px;
+  background-color: #FFFFFF; /* White background */
+  border-bottom: 1px solid #DDE1E6; /* Light gray border */
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #DDE1E6;
+  border-radius: 15px; /* Pill shape */
+  font-size: 0.9em;
+  background-color: #F0F2F5;
+  margin-right: 8px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: hsl(273, 100%, 67%);
+  background-color: #FFFFFF;
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  color: #AAB8C2;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.clear-search-btn:hover {
+  color: #14171A;
+}
+
+/* Messages Container */
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing between messages */
+  position: relative; /* Create a stacking context */
+}
+
+.loading-messages,
+.no-messages {
+  text-align: center;
+  color: #657786; /* Medium gray */
+  padding: 20px;
+  font-size: 1em;
+  align-self: center; /* Center these placeholders */
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Individual Message Styling */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%; /* Messages don't span full width */
+  padding: 8px 12px;
+  border-radius: 18px; /* Rounded bubbles */
+  position: relative; /* For reaction button positioning */
+}
+
+.message.sent {
+  background-color: hsl(273, 100%, 67%); /* Main green for sent messages */
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px; /* Flat edge for speech bubble effect */
+}
+
+.message.received {
+  background-color: #FFFFFF; /* White for received messages */
+  color: #14171A; /* Dark text */
+  align-self: flex-start;
+  border: 1px solid #DDE1E6; /* Subtle border for received */
+  border-bottom-left-radius: 4px; /* Flat edge for speech bubble effect */
+}
+
+.message-sender {
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: hsl(273, 94%, 51%); /* Dark green for sender name, works on white bg */
+}
+.message.sent .message-sender { /* Not usually shown, but if it were */
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message-content {
+  font-size: 0.95em;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message-text {
+  white-space: pre-wrap; /* Preserve line breaks in text messages */
+}
+
+.message-media img.chat-image,
+.message-media video.chat-video {
+  max-width: 100%;
+  max-height: 300px; /* Limit media height */
+  border-radius: 10px; /* Rounded corners for media */
+  margin-top: 5px;
+  display: block;
+}
+
+.original-filename {
+  font-size: 0.8em;
+  color: inherit; /* Inherits from .message.sent or .message.received */
+  opacity: 0.8;
+  margin-top: 4px;
+  display: block;
+}
+.original-filename.download-link {
+  text-decoration: none;
+}
+.original-filename.download-link:hover {
+  text-decoration: underline;
+}
+
+.message-timestamp {
+  font-size: 0.75em;
+  margin-top: 5px;
+  align-self: flex-end; /* Timestamp to the right */
+  opacity: 0.7;
+}
+.message.sent .message-timestamp {
+  color: rgba(255, 255, 255, 0.8);
+}
+.message.received .message-timestamp {
+  color: #657786;
+}
+
+.uploading-placeholder .message-text em {
+  font-style: italic;
+  color: inherit; /* Will be white on green background */
+  opacity: 0.9;
+}
+
+mark.search-highlight {
+    background-color: hsl(273, 100%, 75%); /* Lighter green for highlighting */
+    color: #14171A;
+    padding: 0.1em;
+    border-radius: 3px;
+}
+.message.sent mark.search-highlight {
+    background-color: #E8F5E9; /* Very light green on dark background for sent messages */
+    color: #14171A;
+}
+
+/* Reactions */
+.reaction-picker-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  font-size: 0.9em; /* Smaller than message text */
+  cursor: pointer;
+  color: #AAB8C2; /* Muted initially */
+  position: absolute; /* Position relative to message */
+  bottom: -5px; /* Adjust for best placement */
+  right: -5px; /* Adjust for best placement */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.message:hover .reaction-picker-btn {
+  opacity: 1;
+}
+
+.message.sent .reaction-picker-btn {
+  color: rgba(255, 255, 255, 0.7);
+}
+.message.sent .reaction-picker-btn:hover {
+  color: #FFFFFF;
+}
+.message.received .reaction-picker-btn:hover {
+  color: hsl(273, 94%, 51%);
+}
+
+.reaction-palette {
+  position: absolute;
+  /* Removed general top/bottom/left/right, will be specific below */
+  background-color: #FFFFFF;
+  border: 1px solid #DDE1E6;
+  border-radius: 15px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row; /* Ensure emojis are in a row, wrap if needed by parent width */
+  gap: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1010; 
+}
+
+/* Position palette to the right of received messages */
+.message.received .reaction-palette {
+  bottom: 0px;             /* Align palette bottom with message bottom */
+  left: calc(100% + 5px);  /* Position 5px to the right of the message bubble */
+  top: auto; /* Explicitly reset top */
+  right: auto; /* Explicitly reset right */
+}
+
+/* Position palette to the left of sent messages */
+.message.sent .reaction-palette {
+  bottom: 0px;             /* Align palette bottom with message bottom */
+  right: calc(100% + 5px); /* Position 5px to the left of the message bubble */
+  top: auto; /* Explicitly reset top */
+  left: auto; /* Explicitly reset left */
+}
+
+.reaction-palette span {
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-size: 1.1em;
+}
+
+.reaction-palette span:hover {
+  background-color: #F0F2F5;
+}
+
+.reactions-container {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-self: flex-start; /* Reactions aligned to the start of the message bubble */
+}
+
+.reaction-emoji {
+  background-color: #E8F5E9; /* Light green background for reactions */
+  color: hsl(273, 94%, 51%); /* Dark green text */
+  padding: 3px 7px;
+  border-radius: 10px; /* Pill shape */
+  font-size: 0.8em;
+  cursor: pointer;
+  border: 1px solid transparent; /* For smooth transition with .reacted-by-user */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.reaction-emoji.reacted-by-user {
+  background-color: hsl(273, 100%, 67%); /* Main green if user reacted */
+  color: #FFFFFF;
+  border-color: hsl(273, 94%, 51%); /* Darker green border */
+}
+
+.reaction-emoji:hover:not(.reacted-by-user) {
+  background-color: #D0E7D2; /* Slightly darker green tint on hover */
+}
+
+
+/* Message Input Form - Enhanced Visibility */
+.message-input-form {
+  display: flex;
+  padding: 15px; /* Increased padding for more space */
+  background-color: #FFFFFF;
+  border-top: 1px solid #DDE1E6;
+  align-items: center; /* Vertically center items */
+  gap: 12px; /* Increased gap */
+  min-height: 70px; /* Ensure the form has a decent height */
+}
+
+.message-input-form input[type="text"] {
+  flex-grow: 1;
+  padding: 12px 18px; /* Increased padding */
+  border: 1px solid #CED4DA; /* Slightly darker border for better visibility */
+  border-radius: 22px; /* Maintained pill shape */
+  font-size: 1em; /* Slightly larger font */
+  background-color: #F8F9FA; /* Light background */
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px; /* Ensure input field is tall enough */
+}
+
+.message-input-form input[type="text"]:focus {
+  border-color: hsl(273, 100%, 67%);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(96, 153, 102, 0.15); /* Softer focus glow */
+}
+
+.message-input-form button {
+  border-radius: 22px; /* Pill shape */
+  border: none;
+  cursor: pointer;
+  font-size: 1em; /* Matched to input field */
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-input-btn {
+  background-color: transparent; /* Explicitly transparent */
+  padding: 8px; /* Slightly more padding for easier click */
+  border-radius: 50%;
+  width: 44px; /* Explicit size */
+  height: 44px; /* Explicit size */
+}
+
+.file-input-btn img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.file-input-btn:hover img {
+  opacity: 1;
+}
+
+.file-input-btn:disabled img {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.message-input-form button[type="submit"] {
+  background-color: hsl(273, 100%, 67%);
+  color: white;
+  padding: 10px 22px; /* Adjusted padding for better appearance */
+  min-height: 44px; /* Match input field height */
+}
+
+.message-input-form button[type="submit"]:hover {
+  background-color: hsl(273, 94%, 51%);
+}
+
+.message-input-form button:disabled {
+  background-color: #E9ECEF; /* Lighter gray for disabled state */
+  color: #AAB8C2;
+  cursor: not-allowed;
+}
+
+/* Ensure file input button also looks disabled */
+.message-input-form .file-input-btn:disabled {
+    /* Already handled by img opacity, but can add more if needed */
+} 

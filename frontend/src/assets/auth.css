@@ -1,0 +1,207 @@
+/* General Body Styles - Optional, but good for consistency */
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px; /* Max width of the auth box */
+  min-height: 80vh; /* Minimum height */
+  max-height: 600px; /* Max height */
+  background-color: #FFFFFF; /* White background for the container */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners for the container */
+  overflow: hidden; /* Ensure child elements adhere to border-radius */
+}
+
+.logo-section {
+  flex-basis: 45%; /* Logo section takes up 45% of the width */
+  background-color: hsl(273, 59%, 46%); /* Muted green background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: #FFFFFF; /* White text for contrast on green */
+}
+
+.logo-section img {
+  max-width: 150px; /* Adjust as needed */
+  margin-bottom: 20px;
+}
+
+.logo-section h1 { /* If you add a title or slogan in the logo section */
+  font-size: 1.8em;
+  margin: 0;
+  text-align: center;
+}
+
+.form-section {
+  flex-basis: 55%; /* Form section takes up 55% of the width */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Added for horizontal centering of children */
+  background-color: #FFFFFF; /* White background for the form area */
+}
+
+.welcome-message {
+  font-size: 1.8em;
+  color: #333333; /* Dark gray text */
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 400px; /* Max width of the form itself */
+  margin: 0 auto; /* Center the form within the form-section */
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  overflow: hidden; /* To make sure child button borders fit nicely */
+  border: 1px solid #DDE1E6; /* Light border around tabs */
+}
+
+.tabs button {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  background-color: #F0F2F5; /* Light gray for inactive tab */
+  color: #555555; /* Medium gray text */
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tabs button:not(:last-child) {
+  border-right: 1px solid #DDE1E6; /* Separator for tabs */
+}
+
+.tabs button.active {
+  background-color: hsl(273, 100%, 67%); /* Muted green for active tab */
+  color: #FFFFFF; /* White text */
+}
+
+.tabs button:hover:not(.active) {
+  background-color: #E4E6EB; /* Slightly darker gray on hover for inactive tab */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555555; /* Medium gray text for labels */
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #DDE1E6; /* Light gray border */
+  border-radius: 6px; /* Rounded corners for inputs */
+  box-sizing: border-box;
+  font-size: 1em;
+  background-color: #FDFDFD; /* Very light background for inputs */
+  color: #333333;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+  outline: none;
+  border-color: hsl(273, 100%, 67%); /* Green border on focus */
+  box-shadow: 0 0 0 2px rgba(96, 153, 102, 0.2); /* Subtle glow on focus */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: hsl(273, 100%, 67%); /* Muted green for submit button */
+  color: white;
+  border: none;
+  border-radius: 6px; /* Rounded corners for button */
+  font-size: 1.1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: hsl(273, 94%, 51%); /* Darker green on hover */
+}
+
+button[type="submit"]:disabled {
+  background-color: #B0BEC5; /* Lighter, desaturated color for disabled state */
+  color: #78909C;
+  cursor: not-allowed;
+}
+
+/* Styles for error and success messages from AuthPage.vue will mostly apply */
+/* We can add some centering and ensure they fit the new design if needed */
+.error-message,
+.success-message {
+  padding: 12px; /* Adjusted padding */
+  margin-bottom: 20px; /* Adjusted margin */
+  border-radius: 6px; /* Consistent border-radius */
+  text-align: center;
+  font-size: 0.95em;
+}
+
+.error-message {
+  background-color: #FFEBEE; /* Light red background */
+  color: #C62828; /* Darker red text */
+  border: 1px solid #FFCDD2; /* Optional border */
+}
+
+.success-message {
+  background-color: #E8F5E9; /* Light green background */
+  color: #2E7D32; /* Darker green text */
+  border: 1px solid #C8E6C9; /* Optional border */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+    min-height: auto;
+    max-height: none;
+    width: 90%;
+    margin: 20px auto; /* Add some margin on smaller screens */
+  }
+
+  .logo-section {
+    flex-basis: auto; /* Reset basis */
+    padding: 30px; /* Reduce padding */
+    min-height: 200px; /* Ensure some height */
+  }
+  
+  .logo-section img {
+    max-width: 100px;
+  }
+
+  .form-section {
+    flex-basis: auto; /* Reset basis */
+    padding: 30px 20px; /* Adjust padding */
+  }
+
+  .welcome-message {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .auth-form {
+    max-width: 100%;
+  }
+} 
